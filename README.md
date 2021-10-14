@@ -5,7 +5,7 @@ hooker是一个基于frida实现的逆向工具包。为逆向开发人员提供
 # [hooker开源协议](https://github.com/CreditTone/hooker/blob/master/LICENSE.md)
 https://github.com/CreditTone/hooker/blob/master/LICENSE.md
 
-hooker使用[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)开源协议，协议核心规范如下。
+hooker使用[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)开源协议，协议核心规范如下
 
   1.授权使用者免费使用个人专利
 
@@ -28,6 +28,10 @@ hooker使用[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)开
 
 ##### [frida版just_trust_me](#11-just_trust_mejs)
 
+##### [frida版just_trust_me实战测试报告](https://github.com/CreditTone/hooker/blob/master/JUSTTRUSTME.md)
+
+##### [disable_sslpinning](#7-disable_sslpinning)
+
 目录
 =================
 
@@ -37,7 +41,8 @@ hooker使用[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)开
     * [2. 安装依赖](#2-安装依赖)
     * [3. 手机连接adb](#3-手机连接adb)
     * [4. 手机开发环境部署](#4-手机开发环境部署)
-    * [5. 部署之后手机的增强功能](#5-部署之后手机的增强功能)
+    * [5. 指定fridaserver端口的手机开发环境部署](#5-指定fridaserver端口的手机开发环境部署)
+    * [6. 部署之后手机的增强功能](#6-部署之后手机的增强功能)
 * [快速开始](#快速开始)
     * [1. 查看可调试进程](#1-查看可调试进程)
     * [2. attach一个应用](#2-attach一个应用)
@@ -49,6 +54,7 @@ hooker使用[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)开
     * [4. objection](#4-objection)
     * [5. xinitdeploy](#5-xinitdeploy)
     * [6. kill](#6-kill)
+    * [7. disable_sslpinning](#7-disable_sslpinning)
 * [应用工作目录的通杀脚本](#应用工作目录的通杀脚本)
     * [1. url.js](#1-urljs)
     * [2. activity_events.js](#2-activity_eventsjs)
@@ -61,6 +67,7 @@ hooker使用[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)开
     * [9. object_store.js](#9-object_storejs)
     * [10. hook_RN.js](#10-hook_RNjs)
     * [11. just_trust_me.js](#11-just_trust_mejs)
+    * [12. just_trust_me_okhttp_hook_finder.js](#12-just_trust_me_okhttp_hook_finderjs)
 * [hooker调试命令行](#hooker调试命令行)
     * [a-打印Activity栈](#a---打印activity栈)
     * [b-打印Service栈](#b---打印Service栈)
@@ -112,7 +119,7 @@ hooker使用[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)开
 
 ### 1. git clone项目
 ```shell
-stephen@ubuntu:~$ git https://github.com/CreditTone/hooker.git
+stephen@ubuntu:~$ git clone https://github.com/CreditTone/hooker.git
 stephen@ubuntu:~$ cd hooker
 stephen@ubuntu:~$ ls
 colorful.py                 com.mokee.aegis              mobile-deploy.tar
@@ -131,7 +138,7 @@ com.miui.screenrecorder     mobile-deploy.sh             xinitdeploy.py
 
 ### 2. 安装依赖
 ```shell
-stephen@ubuntu:~/hooker$ pip install -r requirements.txt
+stephen@ubuntu:~/hooker$ pip3 install -r requirements.txt
 ```
 
 
@@ -144,7 +151,7 @@ FA77C0301476	device
 
 
 ### 4. 手机开发环境部署
-如果你的手机已经启动了frida-server，可以忽略这步。不过还是建议你采用hooker推荐的hluda-server，因为官方的frida-server在启动之后实际上会向app注入frida-agent.so作为代理，聪明的应用可以通过读取/proc/{pid}/maps检测到正在被frida调试。不过，已经有ju人帮我们重新编译了frida-server，把敏感特征去掉了。
+如果你的手机已经启动了frida-server，可以忽略这步。
 
 注意:部分手机出现部署之后adb连不上的问题，那请使用deploy2.sh。
 
@@ -163,8 +170,24 @@ stephen@ubuntu:~/hooker$ #如果你看到你的adb命令被弹出来了，表示
 ![部署演示](assets/hooker-deploy.gif)
 ***
 
+### 5. 指定fridaserver端口的手机开发环境部署
 
-### 5. 部署之后手机的增强功能
+```shell
+stephen@ubuntu:~/hooker$ adb shell #进入手机命令行界面
+sailfish:/ $ su #进入root权限命令行模式
+sailfish:/ $ sh /sdcard/mobile-deploy/deploy.sh 6666  #deploy.sh启动失败的同样可以尝试deploy2.sh                                                   
+disable android firewall.
+set firda_server_bind_port to 6666
+start frida-server
+start network adb.
+deploy successfull.
+stephen@ubuntu:~/hooker$ #如果你看到你的adb命令被弹出来了，表示已经正常部署。
+```
+***
+
+注意：自定义frida server端口的开发环境必须走host:post的方式调试，因为usb默认找27042端口。所以请务必[更改本地.hooker_driver文件](#远程frida支持)，否则hooker无法正常工作。
+
+### 6. 部署之后手机的增强功能
 - 1.关闭iptables防火墙，解决部分手机默认防火墙开启的问题
 - 2.启动frida-server，如果你的手机是arm64他将优先启动arm64位的frida-server
 - 3.在/data/mobile-deploy目录生成tools_env.rc 当你有内网穿透和网络服务转发、编辑文件、检测网络方面的需求时可以执行source /data/mobile-deploy/tools_env.rc，它将临时生成vi、telnet、frpc、tcpforward、ll命令以便你进行更便捷的开发，如图
@@ -349,6 +372,13 @@ frida-kill $HOOKER_DRIVER com.ss.android.ugc.aweme
 ```
 ![](assets/kill.gif)
 
+
+### 7. disable_sslpinning
+快速关闭ssl pinning，此命令基于objection源码实现和[frida版just_trust_me](#11-just_trust_mejs)互补。当just_trust_me失效的时候，可以使用disable_sslpinning。反之，使用[just_trust_me](#11-just_trust_mejs)。
+
+![](assets/disable_sslpinning.gif)
+
+
 # 应用工作目录的通杀脚本
 
 ### 1. url.js
@@ -397,7 +427,7 @@ frida-kill $HOOKER_DRIVER com.ss.android.ugc.aweme
 ![](assets/hook_RN.gif)
 
 ### 11. just_trust_me.js
-frida版本的just_trust_me————这是一个hooker有竞争力的功能。如果你需要bypass sslpinning请执行./spawn just_trust_me.js
+frida版本的just_trust_me。如果你需要bypass sslpinning请执行./spawn just_trust_me.js
 
 下面以Twitter为例，启动just_trust_me.js
 启动演示
@@ -405,6 +435,53 @@ frida版本的just_trust_me————这是一个hooker有竞争力的功能�
 
 抓包效果演示
 ![](assets/just_trust_me_show.gif)
+
+
+### 12. just_trust_me_okhttp_hook_finder.js
+为配合just_trust_me.js在okhttp混淆场景下辅助你找到混淆点 
+jadx打开某资讯apk发现okhttp3如下
+![](assets/qutoutiao.png)
+
+执行./hooking just_trust_me_okhttp_hook_finder.js命令扫描hook点
+```shell
+-----------------------------------------------------------------------
+原类名：okhttp3.CertificatePinner
+混淆类名：okhttp3.g
+
+
+混淆方法0:
+原方法签名：public void okhttp3.CertificatePinner.check(java.lang.String,java.util.List)
+混淆方法签名：public void okhttp3.g.a(java.lang.String,java.util.List) throws javax.net.ssl.SSLPeerUnverifiedException
+
+
+-----------------------------------------------------------------------
+原类名：okhttp3.OkHttpClient$Builder
+混淆类名：okhttp3.OkHttpClient$Builder
+
+
+自动定位混淆方法失败，请去jadx打开okhttp3.OkHttpClient$Builder手动分析混淆方法
+-----------------------------------------------------------------------
+原类名：okhttp3.internal.tls.OkHostnameVerifier
+混淆类名：okhttp3.internal.i.d
+
+
+混淆方法0:
+原方法签名：public boolean okhttp3.internal.tls.OkHostnameVerifier.verify(java.lang.String,javax.net.ssl.SSLSession)
+混淆方法签名：public boolean okhttp3.internal.i.d.verify(java.lang.String,javax.net.ssl.SSLSession)
+
+
+混淆方法1:
+原方法签名：public boolean okhttp3.internal.tls.OkHostnameVerifier.verify(java.lang.String,java.security.cert.X509Certificate)
+混淆方法签名：public boolean okhttp3.internal.i.d.a(java.lang.String,java.security.cert.X509Certificate)
+
+-----------------------------------------------------------------------
+```
+根据上面just_trust_me_okhttp_hook_finder.js跑的结果
+把okhttp3的hook点改成混淆的类：
+
+![](assets/okhttp_justhook.png)
+这个提交记录：https://github.com/CreditTone/hooker/commit/f47d2068320a58306735a623f12bd955cbd20632
+
 
 # hooker调试命令行
 
@@ -634,6 +711,17 @@ https://bbs.pediy.com/thread-267245.htm
 ### 内存漫游窥视对象内部数据
 https://bbs.pediy.com/thread-267245.htm
 
+### 亲测好用的脱壳工具
+https://github.com/CodingGay/BlackDex
+
+https://github.com/GuoQiang1993/Frida-Apk-Unpack
+
+https://github.com/hanbinglengyue/FART
+
+### 通信降级案例（亲测有效）
+https://blog.csdn.net/qq314000558/article/details/105958847
+
+
 # 关于作者
 
 ```javascript
@@ -644,6 +732,21 @@ var author = {
   experience : ["Android应用开发", "网络爬虫", "Android逆向", "JAVA/Go后台开发", "中间件开发"]
 }
 ```
+
+# 加密货币打赏
+
+### Dogecoin tipping
+
+![](assets/dogecoin.jpeg)
+
+
+### Kevacoin tipping
+
+![](assets/kva.jpeg)
+
+
+没有Kevacoin的同学可以用你的普通pc进行挖矿。这个币目前全网算力不高，再垃圾的cpu都能挖的动。[挖矿教程https://www.dxpool.com/help/zh/kva-mining-tutorial](https://www.dxpool.com/help/zh/kva-mining-tutorial)，教程中获取钱包地址部分可以跳过，直接填入我的钱包地址VLuXBaaDzGRukEFPwRmzKm4zhYvX4Xmy1R进行挖矿。只要跑半个小时我就有收益，感谢支持！！！
+
 
 
 ### End

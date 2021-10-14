@@ -19,7 +19,7 @@ function loadDexfile(dexfile) {
 var loadedXRadar = false;
 function loadXRadarDexfile() {
     loadedXRadar = true;
-    loadDexfile('/data/user/0/com.smile.gifmaker/radar.dex');
+    loadDexfile('/data/user/0/com.blockchainvault/radar.dex');
 };
 
 
@@ -45,7 +45,7 @@ function processOkHttp() {
             console.log("com.squareup.okhttp.CertificatePinner.check('java.lang.String', 'java.util.List') was hooked!");
         };
     }else{
-        console.error("没找到com.squareup.okhttp.CertificatePinner类，这是android系统自带的类没找到就算了。不同系统不一样，不用找了!!!");
+        console.error("没找到com.squareup.okhttp.CertificatePinner类，这是android系统自带的类没找到就算求了。不同系统不一样，不用找了!!!");
     }
 
     if (classExists("okhttp3.CertificatePinner")) {
@@ -148,60 +148,14 @@ function processConscryptPlatform() {
         return;
     }
     var com_android_org_conscrypt_Platform_clz = Java.use('com.android.org.conscrypt.Platform');
-    var com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_9565 = undefined;
-    try{
-        com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_9565 = com_android_org_conscrypt_Platform_clz.checkServerTrusted.overload('javax.net.ssl.X509TrustManager', '[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'com.android.org.conscrypt.OpenSSLEngineImpl');
-    }catch(error) {
-
-    }finally{
-        if (com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_9565) {
-            com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_9565.implementation = function(v0, v1, v2, v3) {
-                //什么都不做
-                console.log("static void com.android.org.conscrypt.Platform.checkServerTrusted('javax.net.ssl.X509TrustManager', '[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'com.android.org.conscrypt.OpenSSLEngineImpl') was hooked!");
-            };
-        }
-    }
-    
-    var com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_6928 = undefined;
-    try{
-        com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_6928 = com_android_org_conscrypt_Platform_clz.checkServerTrusted.overload('javax.net.ssl.X509TrustManager', '[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'com.android.org.conscrypt.OpenSSLSocketImpl');
-    }catch(error) {
-
-    }finally{
-        if (com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_6928) {
-           com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_6928.implementation = function(v0, v1, v2, v3) {
-                //什么都不做
-                console.log("static void com.android.org.conscrypt.Platform.checkServerTrusted('javax.net.ssl.X509TrustManager', '[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'com.android.org.conscrypt.OpenSSLSocketImpl') was hooked!"); 
-            }; 
-        }
-    }
-    
-
-    var com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_4651 = undefined;
-    try{
-        com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_4651 = com_android_org_conscrypt_Platform_clz.checkServerTrusted.overload('javax.net.ssl.X509TrustManager', '[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'com.android.org.conscrypt.AbstractConscryptSocket');
-    }catch(error) {
-
-    }finally{
-        if (com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_4651) {
-            com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_4651.implementation = function(v0, v1, v2, v3) {
-                console.log("static void com.android.org.conscrypt.Platform.checkServerTrusted(javax.net.ssl.X509TrustManager,java.security.cert.X509Certificate[],java.lang.String,com.android.org.conscrypt.AbstractConscryptSocket) throws java.security.cert.CertificateException was hooked!");
-            };
-        }
-    }
-
-    var com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_6474 = undefined;
-    try{
-        com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_6474 = com_android_org_conscrypt_Platform_clz.checkServerTrusted.overload('javax.net.ssl.X509TrustManager', '[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'com.android.org.conscrypt.ConscryptEngine');
-    }catch(error) {
-
-    }finally{
-        if (com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_6474) {
-            com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_6474.implementation = function(v0, v1, v2, v3) {
-               console.log("static void com.android.org.conscrypt.Platform.checkServerTrusted(javax.net.ssl.X509TrustManager,java.security.cert.X509Certificate[],java.lang.String,com.android.org.conscrypt.ConscryptEngine) throws java.security.cert.CertificateException was hooked!"); 
-            };
-        }
-    }
+    var com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_9565 = com_android_org_conscrypt_Platform_clz.checkServerTrusted.overload('javax.net.ssl.X509TrustManager', '[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'com.android.org.conscrypt.OpenSSLEngineImpl');
+    com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_9565.implementation = function(v0, v1, v2, v3) {
+        //什么都不做
+    };
+    var com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_6928 = com_android_org_conscrypt_Platform_clz.checkServerTrusted.overload('javax.net.ssl.X509TrustManager', '[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'com.android.org.conscrypt.OpenSSLSocketImpl');
+    com_android_org_conscrypt_Platform_clz_method_checkServerTrusted_6928.implementation = function(v0, v1, v2, v3) {
+        //什么都不做
+    };
 }
 
 
@@ -263,7 +217,7 @@ Java.perform(function() {
     SSLSocketFactoryRapeConstructor.implementation = function(v0, v1, v2, v3, v4, v5) {
         var returnObj = SSLSocketFactoryRapeConstructor.call(this, v0, v1, v2, v3, v4, v5);
         console.log("org.apache.http.conn.ssl.SSLSocketFactory.$init('java.lang.String', 'java.security.KeyStore', 'java.lang.String', 'java.security.KeyStore', 'java.security.SecureRandom', 'org.apache.http.conn.scheme.HostNameResolver') was hooked!");
-        if (Helper.reInitSSLSocketFactory(this, v0, v1, v2, v3, v4, v5)) {
+        if (Helper.reInitSSLSocketFactory(returnObj, v0, v1, v2, v3, v4, v5)) {
             console.log("替换trustmanagers参数成功!");
         }else{
             console.log("替换trustmanagers参数失败!"); 
@@ -276,7 +230,7 @@ Java.perform(function() {
     SSLSocketFactoryGetSocketFactoryMethod.implementation = function() {
         //强制用空的构造方法
         console.log("org.apache.http.conn.ssl.SSLSocketFactory.getSocketFactory() was hooked!");
-        return SSLSocketFactory.$new();
+        return SSLSocketFactoryEmptyConstructor.call(this);
     };
 
     var SSLSocketFactoryIsSecure = SSLSocketFactory.isSecure.overload('java.net.Socket');
@@ -333,72 +287,26 @@ Java.perform(function() {
 
     if (hasTrustManagerImpl()) {
         var TrustManagerImplClz = Java.use('com.android.org.conscrypt.TrustManagerImpl');
-        var TrustManagerImplCheckServerTrusted_8813 = undefined;
-        try{
-            TrustManagerImplCheckServerTrusted_8813 = TrustManagerImplClz.checkServerTrusted.overload('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'java.lang.String');
-        }catch(error){
-            //console.error(error + " 不要在意这个错误！");
-        }finally{
-            if (TrustManagerImplCheckServerTrusted_8813) {
-                TrustManagerImplCheckServerTrusted_8813.implementation = function(v0, v1, v2) {
-                console.log("com.android.org.conscrypt.TrustManagerImpl.checkServerTrusted('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'java.lang.String') was hooked!");
-                    return newArrayList();
-                };
-            }
-        }
-        var TrustManagerImplCheckServerTrusted_7015 = undefined;
-        try{
-            TrustManagerImplCheckServerTrusted_7015 = TrustManagerImplClz.checkServerTrusted.overload('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'javax.net.ssl.SSLSession');
-        }catch(error){
-            //console.error(error + " 不要在意这个错误！");
-        }finally {
-            if (TrustManagerImplCheckServerTrusted_7015) {
-                TrustManagerImplCheckServerTrusted_7015.implementation = function(v0, v1, v2) {
-                    console.log("com.android.org.conscrypt.TrustManagerImpl.checkServerTrusted('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'javax.net.ssl.SSLSession') was hooked!");
-                    return newArrayList();
-                };
-            }
-        }
-        var TrustManagerImplCheckTrusted_5587 = undefined;
-        try{
-            TrustManagerImplCheckTrusted_5587 = TrustManagerImplClz.checkTrusted.overload('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'java.lang.String', 'boolean');
-        }catch(error){
-            //console.error(error + " 不要在意这个错误！");
-        }finally{
-            if (TrustManagerImplCheckTrusted_5587) {
-                TrustManagerImplCheckTrusted_5587.implementation = function(v0, v1, v2, v3) {
-                    console.log("com.android.org.conscrypt.TrustManagerImpl.checkTrusted('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'java.lang.String', 'boolean') was hooked!");
-                    return newArrayList();
-                };
-            }
-        }
-        var TrustManagerImplCheckTrusted_9999 = undefined;
-        try{
-            TrustManagerImplCheckTrusted_9999 = TrustManagerImplClz.checkTrusted.overload('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'javax.net.ssl.SSLSession', 'javax.net.ssl.SSLParameters', 'boolean');
-            
-        }catch(error){
-            //console.error(error + " 不要在意这个错误！");
-        }finally{
-            if (TrustManagerImplCheckTrusted_9999) {
-                TrustManagerImplCheckTrusted_9999.implementation = function(v0, v1, v2, v3, v4) {
-                    console.log("com.android.org.conscrypt.TrustManagerImpl.checkTrusted('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'javax.net.ssl.SSLSession', 'javax.net.ssl.SSLParameters', 'boolean') was hooked!");
-                    return newArrayList();
-                };
-            }
-        }
-        var TrustManagerImplCheckTrusted_2872 = undefined;
-        try{
-            TrustManagerImplCheckTrusted_2872 = TrustManagerImplClz.checkTrusted.overload('[Ljava.security.cert.X509Certificate;', '[B', '[B', 'java.lang.String', 'java.lang.String', 'boolean');
-        }catch(error){
-            //console.error(error + " 不要在意这个错误！");
-        }finally{
-            if (TrustManagerImplCheckTrusted_2872) {
-                TrustManagerImplCheckTrusted_2872.implementation = function(v0, v1, v2, v3, v4, v5) {
-                    console.log('private java.util.List com.android.org.conscrypt.TrustManagerImpl.checkTrusted(java.security.cert.X509Certificate[],byte[],byte[],java.lang.String,java.lang.String,boolean) throws java.security.cert.CertificateException was hooked!');
-                    return newArrayList();
-                };
-            }
-        }
+        var TrustManagerImplCheckServerTrusted_8813 = TrustManagerImplClz.checkServerTrusted.overload('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'java.lang.String');
+        TrustManagerImplCheckServerTrusted_8813.implementation = function(v0, v1, v2) {
+            console.log("com.android.org.conscrypt.TrustManagerImpl.checkServerTrusted('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'java.lang.String') was hooked!");
+            return newArrayList();
+        };
+        var TrustManagerImplCheckServerTrusted_7015 = TrustManagerImplClz.checkServerTrusted.overload('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'javax.net.ssl.SSLSession');
+        TrustManagerImplCheckServerTrusted_7015.implementation = function(v0, v1, v2) {
+            console.log("com.android.org.conscrypt.TrustManagerImpl.checkServerTrusted('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'javax.net.ssl.SSLSession') was hooked!");
+            return newArrayList();
+        };
+        var TrustManagerImplCheckTrusted_5587 = TrustManagerImplClz.checkTrusted.overload('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'java.lang.String', 'boolean');
+        TrustManagerImplCheckTrusted_5587.implementation = function(v0, v1, v2, v3) {
+            console.log("com.android.org.conscrypt.TrustManagerImpl.checkTrusted('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'java.lang.String', 'boolean') was hooked!");
+            return newArrayList();
+        };
+        var TrustManagerImplCheckTrusted_9999 = TrustManagerImplClz.checkTrusted.overload('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'javax.net.ssl.SSLSession', 'javax.net.ssl.SSLParameters', 'boolean');
+        TrustManagerImplCheckTrusted_9999.implementation = function(v0, v1, v2, v3, v4) {
+            console.log("com.android.org.conscrypt.TrustManagerImpl.checkTrusted('[Ljava.security.cert.X509Certificate;', 'java.lang.String', 'javax.net.ssl.SSLSession', 'javax.net.ssl.SSLParameters', 'boolean') was hooked!");
+            return newArrayList();
+        };
     }
 
     processOkHttp();

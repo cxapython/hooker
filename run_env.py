@@ -94,6 +94,8 @@ just_trust_me_okhttp_hook_finder_jscode = readJs("just_trust_me_okhttp_hook_find
 
 hook_RN_jscode = readJs("hook_RN.js")
 
+dump_dex_jscode = readJs("dump_dex.js")
+
 def getPythonLaucher():
     pythonLaucher = os.environ.get("__PYVENV_LAUNCHER__")
     if not pythonLaucher:
@@ -102,6 +104,7 @@ def getPythonLaucher():
         
 
 xinitPyScript = "#! " + getPythonLaucher() + "\n\n" + readFile("xinitdeploy.py")
+disableSslPinningPyScript = "#! " + getPythonLaucher() + "\n\n" + readFile("disable_sslpinning.py")
 spiderPyScript = readFile("spider.py")
 
 def getRemoteDriver():

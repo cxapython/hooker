@@ -1,3 +1,5 @@
+//crack by com.blockchainvault 1.29.0
+//java.util.HashMap:put
 function loadDexfile(dexfile) {
     Java.perform(function() {
           Java.openClassFile(dexfile).load();
@@ -102,10 +104,66 @@ function sleep(time) {
     while(new Date().getTime() < startTime) {}
 };
 
-//byte数组转String，这个方法不能直接调，把方法逻辑内嵌到你的方法体。这里只是展示语法，告诉你怎么转
-function byteArrayToStringStudy() {
-    var bytes = null;//假如bytes是一个java的byte[]
-    var JavaString = Java.use("java.lang.String");//声明java类
-    var result = JavaString.$new(bytes, "utf-8");//result就是java的String
-}
 
+
+var loadedXRadar = false;
+
+function loadXinitDexfile(dexfile) {
+    loadDexfile('/data/user/0/com.blockchainvault/xinit/'+dexfile);
+};
+
+function loadXRadarDexfile() {
+    loadedXRadar = true;
+    loadDexfile('/data/user/0/com.blockchainvault/radar.dex');
+};
+
+function fastTojson(javaObject) {
+    var JSONClz = Java.use("gz.com.alibaba.fastjson.JSON");
+    return JSONClz.toJSONString(javaObject);
+};
+
+function getPrettyString(javaObject) {
+    var XPretty = Java.use("gz.util.XPretty");
+    return XPretty.getPrettyString(javaObject);
+};
+
+function xPretty(javaObject) {
+    var str = getPrettyString(javaObject);
+    console.log(str);
+};
+
+function getField(javaObject, fieldName) {
+    var X = Java.use("gz.util.X");
+    return X.getField(javaObject, fieldName);
+};
+
+function storeObjectAndLog(javaObject) {
+    try {
+        var className = getClassName(javaObject);
+        var ObjectsStore = Java.use("gz.radar.objects.ObjectsStore");
+        var objectId = ObjectsStore.storeObject(javaObject);
+        console.log(className + " ObjectsStoreId: " +objectId);
+    } catch (error) {
+        console.error("你传的不是一个有效的java对象!");
+    }
+};
+
+
+
+//java.util.HashMap:put
+Java.perform(function() {
+    var java_util_HashMap_clz = Java.use('java.util.HashMap');
+    var java_util_HashMap_clz_method_put_7333 = java_util_HashMap_clz.put.overload('java.lang.Object', 'java.lang.Object');
+    java_util_HashMap_clz_method_put_7333.implementation = function(v0, v1) {
+       
+        
+        if (v0 == "captcha_token") {
+            var executor = this.hashCode();
+            var beatText = 'public java.lang.Object java.util.HashMap.put(java.lang.Object,java.lang.Object)';
+            var beat = newMethodBeat(beatText, executor);
+            printBeat(beat);
+        }
+        var ret = java_util_HashMap_clz_method_put_7333.call(this, v0, v1);
+        return ret;
+    };
+});
